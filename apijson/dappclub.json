@@ -1,0 +1,244 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "dappclub api document",
+    "version" : "1.0.0",
+    "title" : "DappClub Api DOC",
+    "termsOfService" : "dappclub team",
+    "contact" : {
+      "name" : "john",
+      "url" : "http://www.dappclub.cc",
+      "email" : "1610712512@qq.com"
+    },
+    "license" : {
+      "name" : "MIT",
+      "url" : "http://opensource.org/licenses/MIT"
+    }
+  },
+  "tags" : [ {
+    "name" : "user",
+    "description" : "user apis"
+  }, {
+    "name" : "post",
+    "description" : "post about apis"
+  }, {
+    "name" : "comments",
+    "description" : "user comments"
+  } ],
+  "paths" : {
+    "/user/user_login" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "summary" : "user login with github oauth2.0",
+        "description" : "user login with github oauth2.0",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "code",
+          "description" : "code from github oauth response",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UserLogin"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/post/post_publish" : {
+      "post" : {
+        "tags" : [ "post" ],
+        "summary" : "publish post",
+        "description" : "publish post",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "ksldfjsdlfj",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/PostPublish"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "security" : [ {
+          "JWT" : [ ]
+        } ]
+      }
+    },
+    "/post/post_list" : {
+      "post" : {
+        "tags" : [ "post" ],
+        "summary" : "get post list",
+        "description" : "get post list",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "params",
+          "required" : false,
+          "schema" : {
+            "$ref" : ""
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/post/post_detail" : {
+      "post" : {
+        "tags" : [ "post" ],
+        "summary" : "get post detail by post id",
+        "description" : "get post detail by post id",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/PostDetail"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/comments/comments_add" : {
+      "post" : {
+        "tags" : [ "comments" ],
+        "summary" : "add comments to psot",
+        "description" : "add comments to psot",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/CommentsAdd"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "security" : [ {
+          "JWT" : [ ]
+        } ]
+      }
+    },
+    "/comments/comments_response" : {
+      "post" : {
+        "tags" : [ "comments" ],
+        "summary" : "response post comments",
+        "description" : "response post comments",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/CommentsResponse"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "security" : [ {
+          "JWT" : [ ]
+        } ]
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "JWT" : {
+      "description" : "json web token verify",
+      "type" : "apiKey",
+      "name" : "token",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "UserLogin" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "example" : "2fdbd900c9f743403c70"
+        }
+      }
+    },
+    "PostPublish" : {
+      "type" : "object",
+      "properties" : {
+        "user_id" : {
+          "type" : "string",
+          "example" : "5c6511cdbe65a4072d029e8d"
+        },
+        "title" : {
+          "type" : "string",
+          "example" : "求EOS开发资料"
+        },
+        "content" : {
+          "type" : "string",
+          "example" : "求EOS智能合约开发资料"
+        }
+      }
+    },
+    "PostDetail" : {
+      "type" : "object",
+      "properties" : {
+        "post_id" : {
+          "type" : "string",
+          "example" : "5c6511cdbe65a4072d029e8d"
+        }
+      }
+    },
+    "CommentsAdd" : {
+      "type" : "object",
+      "properties" : {
+        "post_id" : {
+          "type" : "string",
+          "example" : "5c6511cdbe65a4072d029e8d"
+        },
+        "user_id" : {
+          "type" : "string",
+          "example" : "5c6511cdbe65a4072d029e8d"
+        },
+        "content" : {
+          "type" : "string",
+          "example" : "我这里有eos开发资料，希望能够帮到你"
+        }
+      }
+    },
+    "CommentsResponse" : {
+      "type" : "object",
+      "properties" : {
+        "user_id" : {
+          "type" : "string",
+          "example" : "5c6511cdbe65a4072d029e8d"
+        },
+        "content" : {
+          "type" : "string",
+          "example" : "感谢你的帮助"
+        },
+        "comments_id" : {
+          "type" : "string",
+          "example" : "5c6511cdbe65a4072d029e8d"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/yuanjunliang/dappclub/1.0.0",
+  "schemes" : [ "https", "http" ]
+}
